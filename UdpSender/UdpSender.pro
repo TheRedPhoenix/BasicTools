@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dialog.cpp \
-    udpsender.cpp
+    udpsender.cpp \
+    networkwidget.cpp
 
-HEADERS  += dialog.h \
-    udpsender.h
+HEADERS  += \
+    udpsender.h \
+    networkwidget.h
+
+FORMS += \
+    networkwidget.ui

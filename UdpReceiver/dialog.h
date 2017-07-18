@@ -2,11 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include "udpsender.h"
-#include <QLineEdit>
-#include <QLabel>
-#include <QCheckBox>
-#include <QSpinBox>
+#include "udpreceiver.h"
 
 class Dialog : public QDialog
 {
@@ -15,11 +11,6 @@ class Dialog : public QDialog
 public:
     Dialog(QWidget *parent = 0);
     ~Dialog();
-
-
-private:
-
-    UdpSender * m_sender;
 };
 
 #endif // DIALOG_H

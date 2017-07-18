@@ -12,7 +12,7 @@ UdpSender::UdpSender(QObject *parent)
 
 bool UdpSender::configure(const QHostAddress &address, const uint32_t &port)
 {
-    bool configurationIsOk = address.isNull() && port != 0;
+    bool configurationIsOk = !address.isNull() && port != 0;
 
     if(configurationIsOk){
         m_address = address;
@@ -26,5 +26,5 @@ bool UdpSender::configure(const QHostAddress &address, const uint32_t &port)
 bool UdpSender::sendDatagram(const QByteArray &datagram)
 {
     qint64 bytesWritten = m_udpSocket->writeDatagram(datagram, m_address, (uint16_t)m_port);
-    return bytesWritten = datagram.size();
+    return bytesWritten == datagram.size();
 }

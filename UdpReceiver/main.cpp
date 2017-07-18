@@ -1,10 +1,10 @@
-#include "networkwidget.h"
+#include "netreceiverdialog.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    NetworkWidget w;
+    NetReceiverDialog w;
     w.show();
 
     return a.exec();
