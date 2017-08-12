@@ -107,7 +107,6 @@ QWidget *MainDialog::createHandWidget()
     qreal tails[3] = {0.3, 0.1, 0.1};
     qreal peakPerc[3] = {0.8, 1, 1};
 
-
     int itemPerRow = 3;
     for(int i = 0; i < settingsList.count(); i++){
         QLabel * label = new QLabel(widget);
@@ -126,7 +125,7 @@ QWidget *MainDialog::createHandWidget()
         p.setBrush(brush);
 
         for(int j = 0; j < 3; j++){
-            ClockHandSettings  chs = settingsList.at(i);
+            ClockHandSettings chs = settingsList.at(i);
             chs.setRotation(rotations[j]);
             chs.setTailPercLength(tails[j]);
             chs.setPeakPercSize(peakPerc[j]);
@@ -136,9 +135,7 @@ QWidget *MainDialog::createHandWidget()
 
         label->setPixmap(pixmap);
         layout->addWidget(label, row, column, 1, 1);
-
     }
 
     return widget;
-
 }
