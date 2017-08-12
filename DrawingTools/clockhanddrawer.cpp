@@ -11,17 +11,26 @@ ClockHandDrawer::ClockHandDrawer()
 QPainterPath ClockHandDrawer::createHand(const ClockHandSettings &settings)
 {
     QPainterPath handPath;
+
+    QRect screenRect(QPoint(0,0), settings.screenSize());
+
+    if(settings.originLocation() == ClockHandSettings::Center){
+        QPoint center = QPoint(0,0);
+        screenRect.moveCenter(center);
+    }
+
+
     switch(settings.type()){
 
     case ClockHandSettings::GenericHand:
-        handPath = genericHand(settings.screenSize(),
+        handPath = genericHand(screenRect,
                                settings.handPercSize(),
                                settings.tailPercLength(),
                                settings.peakPercSize(),
                                settings.rotation());
         break;
     case ClockHandSettings::RectHand   :
-        handPath = genericHand(settings.screenSize(),
+        handPath = genericHand(screenRect,
                                settings.handPercSize(),
                                settings.tailPercLength(),
                                0,
@@ -36,10 +45,9 @@ QPainterPath ClockHandDrawer::createHand(const ClockHandSettings &settings)
 }
 
 
-QPainterPath ClockHandDrawer::genericHand(const QSize &screenSize, const QSizeF &handPercSize, qreal tailPercLength, qreal peakPercentage, qreal rotation)
+QPainterPath ClockHandDrawer::genericHand(const QRect &screenRect, const QSizeF &handPercSize, qreal tailPercLength, qreal peakPercentage, qreal rotation)
 {
-    QRectF rect(QPointF(0,0), QSizeF(screenSize));
-
+    QSize screenSize = screenRect.size();
     QSizeF handSize = QSizeF(handPercSize.width() * screenSize.width(), handPercSize.height() * screenSize.height());
 
     qreal tailLength = tailPercLength * handSize.height();
@@ -53,28 +61,28 @@ QPainterPath ClockHandDrawer::genericHand(const QSize &screenSize, const QSizeF 
 
     QPainterPath hand;
     // Point 0
-    hand.moveTo(rect.center() + QPointF( 0, -handSize.height()));
+    hand.moveTo(screenRect.center() + QPointF( 0, -handSize.height()));
     // Point 1
-    hand.lineTo(rect.center() + QPointF(tipWidth, -handSize.height()));
+    hand.lineTo(screenRect.center() + QPointF(tipWidth, -handSize.height()));
     // Point 3
-    hand.lineTo(rect.center() + QPointF( halfWidth, 0));
+    hand.lineTo(screenRect.center() + QPointF( halfWidth, 0));
     // Point 4
-    hand.lineTo(rect.center() + QPointF( tipWidth, qMax(halfWidth, tailLength)));
+    hand.lineTo(screenRect.center() + QPointF( tipWidth, qMax(halfWidth, tailLength)));
     // Point 5
-    hand.lineTo(rect.center() + QPointF( 0, qMax(halfWidth, tailLength)));
+    hand.lineTo(screenRect.center() + QPointF( 0, qMax(halfWidth, tailLength)));
 
     QTransform reflectionTransform;
-    reflectionTransform.translate(rect.center().x(), rect.center().y());
+    reflectionTransform.translate(screenRect.center().x(), screenRect.center().y());
     reflectionTransform.rotate(180, Qt::YAxis);
-    reflectionTransform.translate(-rect.center().x(), -rect.center().y());
+    reflectionTransform.translate(-screenRect.center().x(), -screenRect.center().y());
 
     hand.connectPath(reflectionTransform.map(hand));
     hand = hand.simplified();
 
     QTransform rotationTransform;
-    rotationTransform.translate(rect.center().x(), rect.center().y());
+    rotationTransform.translate(screenRect.center().x(), screenRect.center().y());
     rotationTransform.rotate(rotation);
-    rotationTransform.translate(-rect.center().x(), -rect.center().y());
+    rotationTransform.translate(-screenRect.center().x(), -screenRect.center().y());
 
     return rotationTransform.map(hand);
 }

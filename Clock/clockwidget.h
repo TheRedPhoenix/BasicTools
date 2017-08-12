@@ -20,8 +20,15 @@ private:
     RotationTuple timeToRotations(QTime time, bool continousMovement = true);
 
     virtual void paintEvent(QPaintEvent *event) override;
+    virtual void resizeEvent(QResizeEvent *event) override;
+    void buildHands();
 
     QTimer m_timer;
+
+    QPainterPath m_hoursHand;
+    QPainterPath m_minutesHand;
+    QPainterPath m_secondsHand;
+    QSize m_clockScreenSize;
 
 };
 

@@ -15,8 +15,7 @@ public:
     static QPainterPath createHand(const ClockHandSettings &settings);
 
 private:
-    static QPainterPath rectHand(const QSize &screenSize, const QSizeF &handPercSize, qreal tailLength = 0);
-    static QPainterPath genericHand(const QSize &screenSize,
+    static QPainterPath genericHand(const QRect &screenRect,
                                     const QSizeF &handSize,
                                     qreal tailLength = 0,
                                     qreal peakPercentage = 0,

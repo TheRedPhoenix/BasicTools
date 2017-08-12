@@ -1,8 +1,9 @@
 #include "clockhandsettings.h"
 #include "utilities.h"
 
-ClockHandSettings::ClockHandSettings(const QSize &screenSize, QSizeF handPercSize, qreal tailPercLength, qreal peakPercSize, HandType type, qreal rotation)
+ClockHandSettings::ClockHandSettings(const QSize &screenSize, OriginLocation location, QSizeF handPercSize, qreal tailPercLength, qreal peakPercSize, HandType type, qreal rotation)
 {
+    setOriginLocation(location);
     setScreenSize(screenSize);
     setHandPercSize(handPercSize);
     setTailPercLength(tailPercLength);
@@ -71,4 +72,14 @@ qreal ClockHandSettings::rotation() const
 void ClockHandSettings::setRotation(const qreal &rotation)
 {
     m_rotation = rotation;
+}
+
+ClockHandSettings::OriginLocation ClockHandSettings::originLocation() const
+{
+    return m_originLocation;
+}
+
+void ClockHandSettings::setOriginLocation(const OriginLocation &originLocation)
+{
+    m_originLocation = originLocation;
 }

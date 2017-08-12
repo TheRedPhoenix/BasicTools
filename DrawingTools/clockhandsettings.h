@@ -25,7 +25,13 @@ public:
         HandMax
     };
 
+    enum OriginLocation {
+        TopLeft,
+        Center
+    };
+
     ClockHandSettings(const QSize &screenSize,
+                      OriginLocation location = TopLeft,
                       QSizeF handPercSize = QSizeF(0.1,0.45),
                       qreal tailPercLength = 0.3,
                       qreal peakPercSize = 1.0,
@@ -50,12 +56,16 @@ public:
     qreal rotation() const;
     void setRotation(const qreal &rotation);
 
+    OriginLocation originLocation() const;
+    void setOriginLocation(const OriginLocation &originLocation);
+
 private:
     QSize m_screenSize;
     QSizeF m_handPercSize;
     qreal m_tailPercLength;
     qreal m_peakPercSize;
     HandType m_type;
+    OriginLocation m_originLocation;
     qreal m_rotation;
 };
 
