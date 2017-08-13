@@ -6,6 +6,8 @@
 
 #include "clockhandsettings.h"
 
+typedef QVector<QRectF> QRectFVector;
+
 class ClockHandDrawer
 {
 public:
@@ -14,6 +16,7 @@ public:
 
     static QPainterPath createHand(const ClockHandSettings &settings);
 
+    static QRectFVector clockLabelRects(qreal centerRadius, uint numberOfRects, QSizeF size );
 private:
     static QPainterPath genericHand(const QRect &screenRect,
                                     const QSizeF &handSize,

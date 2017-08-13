@@ -2,6 +2,8 @@
 
 #include "basicdrawer.h"
 #include "utilities.h"
+#include <QtMath>
+#include <QVector>
 
 ClockHandDrawer::ClockHandDrawer()
 {
@@ -42,6 +44,23 @@ QPainterPath ClockHandDrawer::createHand(const ClockHandSettings &settings)
     }
 
     return handPath;
+}
+
+QRectFVector ClockHandDrawer::clockLabelRects(qreal centerRadius, uint numberOfRects, QSizeF size)
+{
+    QRectFVector vector(numberOfRects);
+
+    qreal deltaT = 2*M_PI / numberOfRects ;
+
+    for(qreal t = - M_PI_2 + deltaT; t < 3*M_PI_2 + deltaT; t+= deltaT){
+
+        QPointF center(centerRadius * qCos(t), centerRadius * qSin(t));
+
+        vector << QRectF(center - QPointF(size.width() / 2.0, size.height() / 2.0), size);
+
+    }
+
+    return vector;
 }
 
 

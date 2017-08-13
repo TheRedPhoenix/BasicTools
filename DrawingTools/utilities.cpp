@@ -24,4 +24,18 @@ qreal rangeCheck(qreal value, qreal min, qreal max)
     return rangeCheck(value, min, max, &unused);
 }
 
+QStringList numberStringList(int first, int last, int step)
+{
+    Q_ASSERT_X(first <= last - step, "Utilities::numberStringList", "Error in function arguments");
+
+    QStringList numberList;
+    for(int i = first; i <= last; i+=step){
+        numberList << QString::number(i, 10);
+    }
+
+    return numberList;
+}
+
+
+
 }
